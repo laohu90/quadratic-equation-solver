@@ -74,31 +74,35 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
 
   // Sync document title, meta tags, and OpenGraph dynamically
   useEffect(() => {
-    document.documentElement.lang = lang === "zh" ? "zh-CN" : lang;
-    document.title = t.appTitle;
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute("content", t.metaDescription);
-    }
-    const metaKeywords = document.querySelector('meta[name="keywords"]');
-    if (metaKeywords) {
-      metaKeywords.setAttribute("content", t.metaKeywords);
-    }
-    const ogTitle = document.querySelector('meta property="og:title"]');
-    if (ogTitle) {
-      ogTitle.setAttribute("content", t.appTitle);
-    }
-    const ogDesc = document.querySelector('meta[property="og:description"]');
-    if (ogDesc) {
-      ogDesc.setAttribute("content", t.metaDescription);
-    }
-    const twTitle = document.querySelector('meta[name="twitter:title"]');
-    if (twTitle) {
-      twTitle.setAttribute("content", t.appTitle);
-    }
-    const twDesc = document.querySelector('meta[name="twitter:description"]');
-    if (twDesc) {
-      twDesc.setAttribute("content", t.metaDescription);
+    try {
+      document.documentElement.lang = lang === "zh" ? "zh-CN" : lang;
+      document.title = t.appTitle;
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        metaDesc.setAttribute("content", t.metaDescription);
+      }
+      const metaKeywords = document.querySelector('meta[name="keywords"]');
+      if (metaKeywords) {
+        metaKeywords.setAttribute("content", t.metaKeywords);
+      }
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      if (ogTitle) {
+        ogTitle.setAttribute("content", t.appTitle);
+      }
+      const ogDesc = document.querySelector('meta[property="og:description"]');
+      if (ogDesc) {
+        ogDesc.setAttribute("content", t.metaDescription);
+      }
+      const twTitle = document.querySelector('meta[name="twitter:title"]');
+      if (twTitle) {
+        twTitle.setAttribute("content", t.appTitle);
+      }
+      const twDesc = document.querySelector('meta[name="twitter:description"]');
+      if (twDesc) {
+        twDesc.setAttribute("content", t.metaDescription);
+      }
+    } catch (e) {
+      console.warn("Failed to update document meta", e);
     }
   }, [lang, t]);
 

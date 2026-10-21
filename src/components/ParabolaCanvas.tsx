@@ -35,6 +35,10 @@ export const ParabolaCanvas: React.FC<ParabolaCanvasProps> = ({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    if (!Number.isFinite(vertexX) || !Number.isFinite(vertexY) || !Number.isFinite(aVal) || !Number.isFinite(bVal) || !Number.isFinite(cVal) || aVal === 0) {
+      return;
+    }
+
     // High DPI scaling
     const dpr = window.devicePixelRatio || 1;
     const rect = canvas.getBoundingClientRect();

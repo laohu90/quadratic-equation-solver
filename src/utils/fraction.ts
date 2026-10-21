@@ -135,14 +135,16 @@ export function parseNumberOrFraction(input: string | number): Fraction | null {
  * Simplifies a square root: sqrt(n) -> { outer: k, inner: m } where n = k^2 * m
  */
 export function simplifySqrt(n: number): { outer: number; inner: number } {
-  if (n <= 0) return { outer: 0, inner: 0 };
+  if (!Number.isFinite(n) || n <= 0) return { outer: 0, inner: 0 };
+  const rounded = Math.round(n);
+  if (rounded <= 0 || rounded > 100000000) return { outer: 1, inner: rounded };
   let outer = 1;
-  let inner = n;
+  let inner = rounded;
 
   for (let i = 2; i * i <= inner; i++) {
     while (inner % (i * i) === 0) {
       outer *= i;
-      inner /= i * i;
+      inner = Math.floor(inner / (i * i));
     }
   }
 

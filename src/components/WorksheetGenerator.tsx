@@ -90,7 +90,11 @@ export const WorksheetGenerator: React.FC = () => {
   }, [difficulty, count, refreshSeed, lang]);
 
   const handlePrint = () => {
-    window.print();
+    try {
+      window.print();
+    } catch (e) {
+      console.warn("Print not supported in current environment", e);
+    }
   };
 
   return (

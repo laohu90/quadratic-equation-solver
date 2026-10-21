@@ -18,6 +18,10 @@ export const CustomExpressionEvaluator: React.FC<CustomExpressionEvaluatorProps>
   const { lang, t } = useTranslation();
   const [paramK, setParamK] = useState<number>(2);
 
+  if (!sumOfRoots || !productOfRoots) {
+    return null;
+  }
+
   const S = sumOfRoots;
   const P = productOfRoots;
 

@@ -131,7 +131,11 @@ export const EquationSolverView: React.FC = () => {
   }, [calculationResult, isValidInput, inputA, inputB, inputC]);
 
   const handleCopyEquation = (tex: string) => {
-    navigator.clipboard?.writeText(tex);
+    try {
+      navigator.clipboard?.writeText(tex)?.catch?.(() => {});
+    } catch {
+      // ignore
+    }
     setCopiedTex(tex);
     setTimeout(() => setCopiedTex(null), 1800);
   };
@@ -139,7 +143,11 @@ export const EquationSolverView: React.FC = () => {
   const handleCopyReport = () => {
     if (!calculationResult) return;
     const text = formatSolutionToPlainText(calculationResult, lang);
-    navigator.clipboard?.writeText(text);
+    try {
+      navigator.clipboard?.writeText(text)?.catch?.(() => {});
+    } catch {
+      // ignore
+    }
     setCopiedReport(true);
     setTimeout(() => setCopiedReport(false), 2000);
   };

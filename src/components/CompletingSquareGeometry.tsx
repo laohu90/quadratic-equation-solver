@@ -18,6 +18,11 @@ export const CompletingSquareGeometry: React.FC<CompletingSquareGeometryProps> =
   const { t, lang } = useTranslation();
   const [isCompleted, setIsCompleted] = useState<boolean>(true);
 
+  // If a is zero or invalid, do not render geometry
+  if (!a || a.num === 0) {
+    return null;
+  }
+
   // Compute b/2a
   const bDivA = b.div(a);
   const halfB = bDivA.div(2);

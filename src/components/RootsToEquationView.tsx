@@ -145,7 +145,11 @@ export const RootsToEquationView: React.FC = () => {
   }, [radicalM, radicalN, lang]);
 
   const handleCopy = (tex: string) => {
-    navigator.clipboard?.writeText(tex);
+    try {
+      navigator.clipboard?.writeText(tex)?.catch?.(() => {});
+    } catch {
+      // ignore
+    }
     setCopiedTex(tex);
     setTimeout(() => setCopiedTex(null), 1800);
   };
@@ -163,7 +167,11 @@ export const RootsToEquationView: React.FC = () => {
         `Verification: -b/a = ${rationalResult.sumTex}, c/a = ${rationalResult.productTex}`,
         `—— Vieta's Formulas & Quadratic Solver ——`,
       ].join("\n");
-      navigator.clipboard?.writeText(text);
+      try {
+        navigator.clipboard?.writeText(text)?.catch?.(() => {});
+      } catch {
+        // ignore
+      }
       setCopiedReport(true);
       setTimeout(() => setCopiedReport(false), 2000);
     } else if (rootType === "radical" && radicalResult) {
@@ -175,7 +183,11 @@ export const RootsToEquationView: React.FC = () => {
         `Equation: ${radicalResult.equationTex}`,
         `—— Vieta's Formulas & Quadratic Solver ——`,
       ].join("\n");
-      navigator.clipboard?.writeText(text);
+      try {
+        navigator.clipboard?.writeText(text)?.catch?.(() => {});
+      } catch {
+        // ignore
+      }
       setCopiedReport(true);
       setTimeout(() => setCopiedReport(false), 2000);
     }
