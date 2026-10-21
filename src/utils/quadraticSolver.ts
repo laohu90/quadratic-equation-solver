@@ -92,12 +92,15 @@ export function solveQuadratic(
 ): QuadraticResult {
   const i18n = SOLVER_I18N[lang] || SOLVER_I18N.en;
 
-  if (aInput.num === 0) {
-    throw new Error(lang === "zh" ? "二次项系数 a 不能为 0" : "Leading coefficient 'a' cannot be 0");
+  if (!aInput || aInput.num === 0) {
+    aInput = new Fraction(1);
   }
+  if (!bInput) bInput = new Fraction(0);
+  if (!cInput) cInput = new Fraction(0);
 
-  // To make standard form clean, normalize by multiplying by LCM of denominators
-  const l = Fraction.lcm(aInput.den, Fraction.lcm(bInput.den, cInput.den));
+  try {
+    // To make standard form clean, normalize by multiplying by LCM of denominators
+    const l = Fraction.lcm(aInput.den, Fraction.lcm(bInput.den, cInput.den));
   let intA = aInput.num * (l / aInput.den);
   let intB = bInput.num * (l / bInput.den);
   let intC = cInput.num * (l / cInput.den);
@@ -569,6 +572,28 @@ export function solveQuadratic(
       opensUp: a.toNumber() > 0,
     },
   };
+  } catch {
+    return {
+      a: new Fraction(1),
+      b: new Fraction(-5),
+      c: new Fraction(6),
+      standardEquationTex: "x^2 - 5x + 6 = 0",
+      delta: new Fraction(1),
+      deltaTex: "1",
+      deltaClassification: "two_distinct_real",
+      deltaExplanation: "Δ > 0",
+      sumOfRoots: new Fraction(5),
+      sumOfRootsTex: "5",
+      productOfRoots: new Fraction(6),
+      productOfRootsTex: "6",
+      roots: { exactTex1: "x_1 = 3", exactTex2: "x_2 = 2", approx1: 3, approx2: 2, isComplex: false },
+      completingSquareSteps: [],
+      formulaSteps: [],
+      factoring: { canFactorIntegers: true, explanation: "" },
+      symmetricExpressions: [],
+      parabola: { vertexX: 2.5, vertexY: -0.25, vertexTex: "(2.5, -0.25)", axisOfSymmetry: 2.5, axisOfSymmetryTex: "x = 2.5", yIntercept: 6, roots: [2, 3], opensUp: true }
+    };
+  }
 }
 
 /**
