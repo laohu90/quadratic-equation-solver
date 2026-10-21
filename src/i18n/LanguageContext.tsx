@@ -9,9 +9,9 @@ interface LanguageContextType {
 }
 
 const LanguageContext = createContext<LanguageContextType>({
-  lang: "zh",
+  lang: "en",
   setLang: () => {},
-  t: TRANSLATIONS.zh,
+  t: TRANSLATIONS.en,
 });
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -21,17 +21,10 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
       if (saved && (saved === "en" || saved === "es" || saved === "fr" || saved === "pt" || saved === "zh")) {
         return saved as Language;
       }
-      // Smart browser language auto-detection without intrusive notifications
-      const navLang = (navigator.language || (navigator as any).userLanguage || "").toLowerCase();
-      if (navLang.startsWith("zh")) return "zh";
-      if (navLang.startsWith("es")) return "es";
-      if (navLang.startsWith("fr")) return "fr";
-      if (navLang.startsWith("pt")) return "pt";
-      if (navLang.startsWith("en")) return "en";
     } catch {
       // ignore
     }
-    return "zh"; // Default to Chinese as primary
+    return "en"; // Default is strictly English
   });
 
   const setLang = (newLang: Language) => {
@@ -94,8 +87,8 @@ export const LanguageSwitcher: React.FC<{ className?: string }> = ({ className =
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const options: { code: Language; label: string; nativeName: string }[] = [
-    { code: "zh", label: "Chinese", nativeName: "简体中文" },
     { code: "en", label: "English", nativeName: "English" },
+    { code: "zh", label: "Chinese", nativeName: "简体中文" },
     { code: "es", label: "Spanish", nativeName: "Español" },
     { code: "fr", label: "French", nativeName: "Français" },
     { code: "pt", label: "Portuguese", nativeName: "Português" },

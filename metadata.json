@@ -1,6 +1,6 @@
 {
-  "name": "韦达定理根与系数计算器",
-  "description": "专业一元二次方程韦达定理与配方法拆解计算器，支持根与系数关系推导、对称式化简、因式分解与两根反求方程。",
+  "name": "Vieta Quadratic Equation Solver",
+  "description": "Professional Vieta's formulas and quadratic equation calculator with step-by-step completing the square, roots-to-equation derivation, and symmetric polynomial evaluator.",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
